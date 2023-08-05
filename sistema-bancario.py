@@ -15,11 +15,20 @@ LIMITE_SAQUES = 3
 while True:
     opcao = input(menu)
 
-    if opcao == 1:
+    if opcao == "1":
         print("Deposito")
-    elif opcao == 2:
+        valor_deposito = float(input("Qual o valor do depósito?"))
+        if(valor_deposito >= 0):
+            saldo += valor_deposito
+    elif opcao == "2":
         print("Saque")
-    elif opcao == 3:
+    elif opcao == "3":
         print("Extrato")
+    elif opcao == "0":
+        print("Saindo da conta...")
+        break    
     else:
         print("Opção inexistente! Selecione outra opção.")
+
+
+print(saldo)
