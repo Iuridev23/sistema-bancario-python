@@ -17,30 +17,45 @@ while True:
     opcao = input(menu)
 
     if opcao == "1":
-        print("Deposito")
+        print("-----------Deposito-----------")
         valor_deposito = float(input("Qual o valor do depósito? "))
         if(valor_deposito >= 0):
             saldo += valor_deposito
-            extrato += f"Depósito: {valor_deposito}\n Saldo: {saldo}\n"
+            extrato += f"Depósito: +R$ {valor_deposito:.2f} \nSaldo: R$ {saldo:.2f}\n"
         else:
             print("Valor Inválido!")
 
     elif opcao == "2":
-        print("Saque")
-        if(contator_saque < 3):
-            valor_saque = float(input("Qual o valor a ser sacado? "))        
-            if(valor_saque > 0 and valor_saque <= saldo and valor_saque <= LIMITE):
-                saldo -= valor_saque
-                contator_saque += 1
-                extrato += f"Saque: {valor_saque}\n Saldo: {saldo}\n"
-            else:
-                print("Saldo Insufciente ou Valor Inválido")
+        print("-----------Saque-----------")
+        
+        saques_excedidos = contator_saque >= LIMITE_SAQUES
+
+        if saques_excedidos:
+            print("Número diário de saques excedido!")            
         else:
-            print("Limite de saques excedido!")
+            valor_saque = float(input("Qual o valor a ser sacado? "))
+
+            saldo_excedido = valor_saque > saldo
+            limite_excedido = valor_saque > LIMITE
+            
+            if limite_excedido:            
+                print("Valor do saque excedeu o limite!")
+            elif saldo_excedido:
+                print("Saldo Insuficiente!") 
+            elif valor_saque > 0:
+                saldo -= valor_saque
+                extrato += f"Saque: -R$ {valor_saque:.2f} \nSaldo: R$ {saldo:.2f}\n"
+                contator_saque += 1
+            else:
+                print("Valor Inválido!")
             
     elif opcao == "3":
-        print("Extrato")
-        print(extrato)
+        if not extrato:
+            print("Não foram realizadas movimentações.")
+        else:
+            print("-----------Extrato-----------")
+            print(extrato)
+            print(f"----------- \nSaldo Total: R$ {saldo:.2f}")
 
     elif opcao == "0":
         print("Saindo da conta...")
