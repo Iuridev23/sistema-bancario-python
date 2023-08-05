@@ -21,6 +21,7 @@ while True:
         valor_deposito = float(input("Qual o valor do depósito? "))
         if(valor_deposito >= 0):
             saldo += valor_deposito
+            extrato += f"Depósito: {valor_deposito}\n Saldo: {saldo}\n"
         else:
             print("Valor Inválido!")
 
@@ -31,6 +32,7 @@ while True:
             if(valor_saque > 0 and valor_saque <= saldo and valor_saque <= LIMITE):
                 saldo -= valor_saque
                 contator_saque += 1
+                extrato += f"Saque: {valor_saque}\n Saldo: {saldo}\n"
             else:
                 print("Saldo Insufciente ou Valor Inválido")
         else:
@@ -38,6 +40,8 @@ while True:
             
     elif opcao == "3":
         print("Extrato")
+        print(extrato)
+
     elif opcao == "0":
         print("Saindo da conta...")
         break    
@@ -45,5 +49,5 @@ while True:
         print("Opção inexistente! Selecione outra opção.")
 
 
-print(saldo)
-print(contator_saque)
+
+
